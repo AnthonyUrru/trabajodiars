@@ -1,0 +1,28 @@
+﻿@{ 
+   // var account = (Account)ViewBag.Account; // FORMA a
+    var account = (Account)Model; // FORMA a
+}
+    <h1>Editar Cuenta</h1>
+
+    
+    <form action="/account/edit" method="post">
+
+        <input type="hidden" name="Id" value="@account.Id" />
+
+        Tipo 
+        <select name="Type">
+        @foreach (var item in ViewBag.Types)
+        { 
+            <option value="@item">@item</option>
+        }
+        </select>
+        Nombre <input name="Name" value="@account.Name" />
+        @Html.ValidationMessage("Name")
+        Divisa
+        <select name="Currency">
+            <option value="Soles">Soles</option>
+        </select>
+        Saldo Inicial <input name="Amount" value="@account.Amount" />
+        <button>Guardar</button>
+
+    </form>

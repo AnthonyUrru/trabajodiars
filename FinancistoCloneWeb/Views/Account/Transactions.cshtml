@@ -1,0 +1,40 @@
+﻿@{
+    // List<Transaction> transactions= ((List<Transaction>)ViewBag.Transactions); // forma A
+    List<Transaction> transactions = ((List<Transaction>)Model); // forma B
+                                                                 // var transactions = (Transaction)Model;
+    
+}
+
+<h1>Cuentas - ABC</h1>
+
+<a href="/account/CreateTr?id=@ViewBag.id">Crear Transaccion</a>
+<input type="hidden" name="CuentaId" value="@ViewBag.id" />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID de transaccion</th>
+            <th>Tipo</th>
+            <th>Motivo</th>
+            <th>Fecha</th>
+            <th>Monto</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in transactions)
+        {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Tipo</td>
+            <td>@item.Motivo</td>
+            <td>@item.Fecha</td>
+            <td>@item.Monto S/.</td>
+            <td>
+            </td>
+        </tr>
+        }
+        
+    </tbody>
+</table>

@@ -1,0 +1,17 @@
+﻿@{ 
+    var transaction = (Transaction)Model;
+}
+
+    <h1>Crear Transaccion</h1>
+
+    
+    <form action="/account/createTr" enctype="multipart/form-data" method="post">
+
+        <input type="hidden" name="CuentaId" value="@ViewBag.id" />
+        Tipo <input name="Tipo" />
+        Fecha <input name="Fecha" />
+        Motivo <input name="Motivo" />
+        Monto <input name="Monto" value="@transaction.Monto" />
+        <button>Guardar</button>
+
+    </form>

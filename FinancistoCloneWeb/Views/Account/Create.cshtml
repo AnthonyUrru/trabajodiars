@@ -1,0 +1,32 @@
+﻿@{ 
+    var account = (Account)Model;
+}
+
+    <h1>Crear Cuenta</h1>
+
+    
+    <form action="/account/create" enctype="multipart/form-data" method="post">
+
+        <input type="file" name="Image" />
+
+        Tipo <select name="TypeId">
+            <option value="">-- Selecciona una opción --</option>
+            @foreach(var item in ViewBag.Types)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+
+        Nombre <input name="Name" />
+        @Html.ValidationMessage("Name")
+
+        Divisa
+        <select name="Currency">
+            <option value="Soles">Soles</option>
+        </select>
+
+        Saldo Inicial <input name="Amount" value="@account.Amount" />
+        @Html.ValidationMessage("Amount")
+        <button>Guardar</button>
+
+    </form>

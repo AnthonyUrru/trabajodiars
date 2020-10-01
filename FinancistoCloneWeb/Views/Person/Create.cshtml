@@ -1,0 +1,34 @@
+﻿
+
+    <form action="/person/create" method="post">
+        <input type="text" name="Name" />
+        @Html.ValidationMessage("Name")
+        <input type="text" name="LastName" />
+        @Html.ValidationMessage("LastName")
+        <input type="text" name="BirthDate" placeholder="Fecha de cumpleaños" />
+        @Html.ValidationMessage("BirthDate")
+        <input type="text" name="Document" />
+        @Html.ValidationMessage("Document")
+        <select name="City">
+            @foreach (var item in ViewBag.Cities)
+            {
+                <option value="@item.Name">@item.Name</option>
+            }
+        </select>
+        @Html.ValidationMessage("City")
+        <select name="Gender">
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+        </select>
+        <input type="text" name="Gender" />
+        @Html.ValidationMessage("Gender")
+        <input type="text" name="Email" />
+        @Html.ValidationMessage("Email")
+        <input type="text" name="Username" />
+        @Html.ValidationMessage("Username")
+        <input type="text" name="Password" />
+        @Html.ValidationMessage("Password")
+
+        <button>Guardar</button>
+        
+    </form>
