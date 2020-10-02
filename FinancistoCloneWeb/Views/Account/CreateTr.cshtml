@@ -8,7 +8,11 @@
     <form action="/account/createTr" enctype="multipart/form-data" method="post">
 
         <input type="hidden" name="CuentaId" value="@ViewBag.id" />
-        Tipo <input name="Tipo" />
+        Tipo <select name="Tipo">
+            <option value="">--Selecciona una opción--</option>
+            <option value="Ingreso">Ingreso</option>
+            <option value="Egreso">Egreso</option>
+        </select>
         Fecha <input name="Fecha" />
         Motivo <input name="Motivo" />
         Monto <input name="Monto" value="@transaction.Monto" />

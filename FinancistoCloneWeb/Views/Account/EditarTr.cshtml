@@ -1,0 +1,25 @@
+﻿@{ 
+    var transaction = (Transaction)Model;
+}
+
+    <h1>Editar Transaccion</h1>
+
+    
+    <form action="/account/editarTr" enctype="multipart/form-data" method="post">
+        <input type="hidden" name="Id" value="@transaction.Id" />
+        <input type="hidden" name="CuentaId" value="@transaction.CuentaId" />
+        <input type="hidden" name="montoa" value="@ViewBag.Monto" />
+
+        Tipo <select name="Tipo">
+            <option value="">--Selecciona una opción--</option>
+            <option value="Ingreso">Ingreso</option>
+            <option value="Egreso">Egreso</option>
+        </select>
+
+        Fecha <input name="Fecha" value="@transaction.Fecha" />
+        Motivo <input name="Motivo" value="@transaction.Motivo" />
+        Monto <input name="Monto" value="@transaction.Monto" />
+
+        <button>Guardar</button>
+
+    </form>

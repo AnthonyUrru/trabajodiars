@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using System.Data.OleDb;
 using System.IO;
 using System.Linq;
 
@@ -14,7 +15,7 @@ namespace FinancistoCloneWeb.Controllers
     {
         private FinancistoContext _context;
         public IHostEnvironment _hostEnv;
-
+       
         public AccountController(FinancistoContext context, IHostEnvironment hostEnv):base(context)
         {
             _context = context;
@@ -113,12 +114,11 @@ namespace FinancistoCloneWeb.Controllers
             ViewBag.id = id;
             //var transtactions = _context.Trasa
             return View("CreateTr", new Transaction());
-
         }
         [HttpPost]
         public ActionResult CreateTr(Transaction tr)
         {
-           var cuenta = _context.Accounts.Where(o=>o.Id==tr.CuentaId).Include(o => o.transaction).FirstOrDefault();
+           var cuenta = _context.Accounts.Where(o=>o.Id==tr.CuentaId).FirstOrDefault();
             if (tr.Tipo == "Egreso") { 
             cuenta.Amount = cuenta.Amount-tr.Monto;
                 _context.SaveChanges();
@@ -133,7 +133,63 @@ namespace FinancistoCloneWeb.Controllers
             return RedirectToAction("Index");
             
         }
-      
+        [HttpGet]
+        public ActionResult EditarTr(int id)
+        {
+            var transaction = _context.Transactions.Where(o=>o.Id==id).FirstOrDefault();
+           
+            ViewBag.monto = transaction.Monto;
+            return View(transaction);
+        }
+        [HttpPost]
+        public ActionResult EditarTr(Transaction transaction, decimal montoa)
+        {
+
+           var cuenta = _context.Accounts.Where(o =>o.Id == transaction.CuentaId).FirstOrDefault();
+
+
+            decimal monton;
+            if (transaction.Tipo == "Ingreso")
+            {
+                if (montoa > transaction.Monto)
+                {
+                    monton = montoa - transaction.Monto;
+                    cuenta.Amount = cuenta.Amount - monton;
+                    _context.SaveChanges();
+                }
+                if (montoa < transaction.Monto)
+                {
+                    monton = transaction.Monto - montoa;
+                    cuenta.Amount = cuenta.Amount + monton;
+                    _context.SaveChanges();
+                }
+                //cuenta.Amount = cuenta.Amount - transaction.Monto;
+                //    _context.SaveChanges();
+                }
+            if (transaction.Tipo == "Egreso")
+            {
+                
+                if ( montoa>transaction.Monto) {
+                    monton = montoa - transaction.Monto;
+                    cuenta.Amount = cuenta.Amount + monton;
+                    _context.SaveChanges();
+                }
+                if(montoa<transaction.Monto){
+                    monton = transaction.Monto-montoa;
+                    cuenta.Amount = cuenta.Amount - monton;
+                _context.SaveChanges();
+                }
+            }
+               _context.Transactions.Update(transaction);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            
+
+           // return View(transaction);
+
+          
+        }
+
 
     }
 }

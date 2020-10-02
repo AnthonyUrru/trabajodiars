@@ -8,6 +8,7 @@
 <h1>Cuentas - ABC</h1>
 
 <a href="/account/CreateTr?id=@ViewBag.id">Crear Transaccion</a>
+
 <input type="hidden" name="CuentaId" value="@ViewBag.id" />
 
 <table class="table">
@@ -32,6 +33,7 @@
             <td>@item.Fecha</td>
             <td>@item.Monto S/.</td>
             <td>
+                <a href="/account/EditarTr?id=@item.Id">Editar Transaccion</a>
             </td>
         </tr>
         }
